@@ -1,11 +1,11 @@
-﻿# Jornal Escolar - EEEP Adolfo Ferreira de Sousa
+﻿﻿# Jornal Escolar - EEEP Adolfo Ferreira de Sousa
 
 Este é o site do jornal escolar da EEEP Adolfo Ferreira de Sousa, Redenção-CE.
 
 ## Estrutura do Projeto
 
-- \ackend/\: API Java Spring Boot
-- \rontend/\: Aplicação React
+- backend/: API Java Spring Boot
+- frontend/: Aplicação React
 
 ## Pré-requisitos
 
@@ -64,16 +64,16 @@ Este é o site do jornal escolar da EEEP Adolfo Ferreira de Sousa, Redenção-CE
 ### Frontend no Vercel
 
 1. Conecte o repositório no Vercel
-2. Configure a variável de ambiente \REACT_APP_API_URL\ com a URL do backend
+2. Configure a variável de ambiente `REACT_APP_API_URL` com a URL do backend
 3. Deploy automático
 
 ## Banco de Dados
 
 O projeto usa MongoDB Atlas. Para desenvolvimento local, pode-se usar o Docker com:
 
-\\\ash
+```bash
 docker-compose up -d
-\\\
+```
 
 ## Licença
 
