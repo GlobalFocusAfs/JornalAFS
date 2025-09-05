@@ -22,15 +22,21 @@ public class NoticiaController {
     }
 
     @PostMapping
-    public Noticia salvarNoticia(
+    public ResponseEntity<?> salvarNoticia(
             @RequestParam String titulo,
             @RequestParam String conteudo,
             @RequestParam String autor,
             @RequestParam(required = false) MultipartFile imagem) {
-        System.out.println("Recebendo notícia: " + titulo + " por " + autor);
-        Noticia noticia = noticiaService.salvar(titulo, conteudo, autor, imagem);
-        System.out.println("Notícia salva com ID: " + noticia.getId());
-        return noticia;
+        try {
+            System.out.println("Recebendo notícia: " + titulo + " por " + autor);
+            Noticia noticia = noticiaService.salvar(titulo, conteudo, autor, imagem);
+            System.out.println("Notícia salva com ID: " + noticia.getId());
+            return ResponseEntity.ok(noticia);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar notícia: " + e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(500).body("Erro interno do servidor: " + e.getMessage());
+        }
     }
 
     @GetMapping("/healthz")

@@ -1,4 +1,4 @@
-- [x] Identify root cause of 400 Bad Request error in news submission
-- [x] Modify frontend/src/components/NoticiaForm.js to conditionally append 'imagem' only if selected
-- [ ] Redeploy frontend to Vercel to apply the fix
-- [ ] Test news submission on the live site to confirm 400 error is resolved
+- [x] Identify root cause of 500 Internal Server Error in news submission
+- [x] Add exception handling in NoticiaController.java to capture and log errors
+- [ ] Redeploy backend to Render to apply the fix
+- [ ] Test news submission on the live site to confirm 500 error is resolved and check error message for root cause
