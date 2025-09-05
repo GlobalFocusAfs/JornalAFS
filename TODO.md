@@ -1,8 +1,6 @@
-- [x] Identify root cause of 500 Internal Server Error in news submission
-- [x] Add exception handling in NoticiaController.java to capture and log errors
-- [ ] Redeploy backend to Render to apply the fix
-- [ ] Test news submission on the live site to confirm 500 error is resolved and check error message for root cause
-- [ ] Add input validation in backend for news fields
-- [ ] Improve error handling in NoticiaService for Cloudinary uploads
-- [ ] Add CORS configuration for better frontend-backend communication
-- [ ] Test the complete flow locally before deployment
+# TODO: Corrigir Problema de CORS e Erro 404
+
+- [x] Substituir CorsConfig.java por filtro CORS global
+- [x] Confirmar URL da API no frontend
+- [ ] Testar as correções
+- [ ] Explicar mudanças em português
