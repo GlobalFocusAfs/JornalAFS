@@ -1,4 +1,4 @@
-﻿package com.jornal.config;
+package com.jornal.config;
 
 import com.cloudinary.Cloudinary;
 import org.springframework.beans.factory.annotation.Value;
@@ -28,3 +28,4 @@ public class CloudinaryConfig {
         return new Cloudinary(config);
     }
 }
+

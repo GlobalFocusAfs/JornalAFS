@@ -1,4 +1,4 @@
-﻿package com.jornal.service;
+package com.jornal.service;
 
 import com.cloudinary.Cloudinary;
 import com.cloudinary.utils.ObjectUtils;
@@ -44,3 +44,4 @@ public class NoticiaService {
         return repository.save(noticia);
     }
 }
+

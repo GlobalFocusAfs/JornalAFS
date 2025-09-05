@@ -36,7 +36,7 @@
         </dependency>
         <dependency>
             <groupId>com.cloudinary</groupId>
-            <artifactId>cloudinary-http5</artifactId>
+            <artifactId>cloudinary-core</artifactId>
             <version>1.37.0</version>
         </dependency>
     </dependencies>

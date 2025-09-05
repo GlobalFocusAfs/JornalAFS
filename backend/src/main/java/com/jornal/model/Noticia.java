@@ -1,4 +1,4 @@
-﻿package com.jornal.model;
+package com.jornal.model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -62,3 +62,4 @@ public class Noticia {
         this.dataPublicacao = dataPublicacao;
     }
 }
+

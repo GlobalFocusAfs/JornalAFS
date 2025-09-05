@@ -1,4 +1,4 @@
-﻿package com.jornal.controller;
+package com.jornal.controller;
 
 import com.jornal.model.Noticia;
 import com.jornal.service.NoticiaService;
@@ -30,3 +30,4 @@ public class NoticiaController {
         return noticiaService.salvar(titulo, conteudo, autor, imagem);
     }
 }
+
