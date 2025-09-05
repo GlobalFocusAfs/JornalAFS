@@ -1,6 +1,4 @@
-# TODO: Corrigir Problema de CORS e Erro 404
+# TODO: Fix Compilation Error in CustomErrorController.java
 
-- [x] Substituir CorsConfig.java por filtro CORS global
-- [x] Confirmar URL da API no frontend
-- [ ] Testar as correções
-- [ ] Explicar mudanças em português
+- [x] Update import in CustomErrorController.java from javax.servlet.http.HttpServletRequest to jakarta.servlet.http.HttpServletRequest
+- [x] Rebuild the project using Maven to verify the fix
