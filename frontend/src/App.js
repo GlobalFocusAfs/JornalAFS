@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import NoticiaList from './components/NoticiaList';
 import NoticiaForm from './components/NoticiaForm';
 import './App.css';
@@ -12,9 +12,11 @@ function App() {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
       const response = await fetch(apiBase + '/api/noticias');
       const data = await response.json();
-      setNoticias(data);
+      // Ensure data is an array
+      setNoticias(Array.isArray(data) ? data : []);
     } catch (error) {
       console.error('Erro ao carregar notícias:', error);
+      setNoticias([]);
     } finally {
       setCarregando(false);
     }
@@ -39,7 +41,7 @@ function App() {
         )}
       </main>
       <footer>
-        <p>&copy; 2023 EEEP Adolfo Ferreira de Sousa - Todos os direitos reservados</p>
+        <p>&copy; 2025 EEEP Adolfo Ferreira de Sousa - Todos os direitos reservados</p>
       </footer>
     </div>
   );

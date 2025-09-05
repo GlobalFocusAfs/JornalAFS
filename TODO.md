@@ -1,5 +1,20 @@
-- [x] Editar App.js para usar fallback URL da API
-- [x] Editar NoticiaForm.js para usar fallback URL da API
-- [ ] Executar o backend Spring Boot na porta 5000
-- [ ] Testar o frontend localmente
-- [ ] Para produção no Vercel, definir REACT_APP_API_URL com a URL do backend implantado
+# TODO: Consertar Código do Jornal
+
+## Backend
+- [ ] Melhorar tratamento de erros no NoticiaService.java para upload de imagem
+- [ ] Adicionar logs no NoticiaController.java para debug
+- [ ] Verificar configuração do Cloudinary no CloudinaryConfig.java
+
+## Frontend
+- [ ] Melhorar tratamento de erros no NoticiaForm.js
+- [ ] Garantir que o FormData esteja correto para upload de imagem
+- [ ] Adicionar logs no console para debug
+
+## Testes
+- [ ] Testar criação de notícia com imagem
+- [ ] Testar listagem de notícias
+- [ ] Verificar se as URLs estão acessíveis
+
+## Deploy
+- [ ] Deploy backend no Render
+- [ ] Deploy frontend no Vercel

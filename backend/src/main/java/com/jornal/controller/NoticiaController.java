@@ -27,7 +27,15 @@ public class NoticiaController {
             @RequestParam String conteudo,
             @RequestParam String autor,
             @RequestParam MultipartFile imagem) {
-        return noticiaService.salvar(titulo, conteudo, autor, imagem);
+        System.out.println("Recebendo notícia: " + titulo + " por " + autor);
+        Noticia noticia = noticiaService.salvar(titulo, conteudo, autor, imagem);
+        System.out.println("Notícia salva com ID: " + noticia.getId());
+        return noticia;
+    }
+
+    @GetMapping("/healthz")
+    public ResponseEntity<String> healthCheck() {
+        return ResponseEntity.ok("OK");
     }
 }
 

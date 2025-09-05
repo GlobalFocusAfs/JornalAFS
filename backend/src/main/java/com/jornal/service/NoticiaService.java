@@ -37,7 +37,9 @@ public class NoticiaService {
                 Map uploadResult = cloudinary.uploader().upload(imagem.getBytes(), ObjectUtils.emptyMap());
                 noticia.setImagemUrl(uploadResult.get("url").toString());
             } catch (IOException e) {
-                throw new RuntimeException("Falha ao fazer upload da imagem", e);
+                // Logar o erro e continuar sem imagem
+                System.err.println("Erro ao fazer upload da imagem: " + e.getMessage());
+                // Não lançar exceção, permitir salvar notícia sem imagem
             }
         }
 

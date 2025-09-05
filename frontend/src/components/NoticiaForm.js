@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 const NoticiaForm = ({ onNewNoticia }) => {
@@ -20,6 +20,7 @@ const NoticiaForm = ({ onNewNoticia }) => {
 
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      console.log('Enviando notícia para:', apiBase + '/api/noticias');
       const response = await axios.post(
         apiBase + '/api/noticias',
         formData,
@@ -29,7 +30,7 @@ const NoticiaForm = ({ onNewNoticia }) => {
           }
         }
       );
-      
+
       if (response.status === 200) {
         alert('Notícia publicada com sucesso!');
         setTitulo('');
@@ -41,7 +42,12 @@ const NoticiaForm = ({ onNewNoticia }) => {
       }
     } catch (error) {
       console.error('Erro ao publicar notícia:', error);
-      alert('Erro ao publicar notícia. Verifique o console para mais detalhes.');
+      if (error.response) {
+        console.error('Resposta do servidor:', error.response.data);
+        alert('Erro ao publicar notícia: ' + (error.response.data.message || 'Erro desconhecido'));
+      } else {
+        alert('Erro ao publicar notícia. Verifique sua conexão com a internet.');
+      }
     } finally {
       setEnviando(false);
     }
