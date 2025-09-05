@@ -16,7 +16,9 @@ const NoticiaForm = ({ onNewNoticia }) => {
     formData.append('titulo', titulo);
     formData.append('conteudo', conteudo);
     formData.append('autor', autor);
-    formData.append('imagem', imagem);
+    if (imagem) {
+      formData.append('imagem', imagem);
+    }
 
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';

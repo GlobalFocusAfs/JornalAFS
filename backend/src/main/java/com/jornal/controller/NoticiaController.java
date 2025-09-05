@@ -26,7 +26,7 @@ public class NoticiaController {
             @RequestParam String titulo,
             @RequestParam String conteudo,
             @RequestParam String autor,
-            @RequestParam MultipartFile imagem) {
+            @RequestParam(required = false) MultipartFile imagem) {
         System.out.println("Recebendo notícia: " + titulo + " por " + autor);
         Noticia noticia = noticiaService.salvar(titulo, conteudo, autor, imagem);
         System.out.println("Notícia salva com ID: " + noticia.getId());
