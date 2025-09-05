@@ -28,10 +28,24 @@ public class NoticiaController {
             @RequestParam String autor,
             @RequestParam(required = false) MultipartFile imagem) {
         try {
+            // Validações básicas
+            if (titulo == null || titulo.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Título é obrigatório");
+            }
+            if (conteudo == null || conteudo.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Conteúdo é obrigatório");
+            }
+            if (autor == null || autor.trim().isEmpty()) {
+                return ResponseEntity.badRequest().body("Autor é obrigatório");
+            }
+
             System.out.println("Recebendo notícia: " + titulo + " por " + autor);
-            Noticia noticia = noticiaService.salvar(titulo, conteudo, autor, imagem);
+            Noticia noticia = noticiaService.salvar(titulo.trim(), conteudo.trim(), autor.trim(), imagem);
             System.out.println("Notícia salva com ID: " + noticia.getId());
             return ResponseEntity.ok(noticia);
+        } catch (IllegalArgumentException e) {
+            System.err.println("Erro de validação: " + e.getMessage());
+            return ResponseEntity.badRequest().body("Dados inválidos: " + e.getMessage());
         } catch (Exception e) {
             System.err.println("Erro ao salvar notícia: " + e.getMessage());
             e.printStackTrace();

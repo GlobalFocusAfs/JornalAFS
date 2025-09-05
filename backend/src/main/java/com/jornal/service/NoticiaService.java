@@ -34,16 +34,35 @@ public class NoticiaService {
 
         if (imagem != null && !imagem.isEmpty()) {
             try {
+                // Validar tamanho da imagem (máximo 5MB)
+                if (imagem.getSize() > 5 * 1024 * 1024) {
+                    throw new IllegalArgumentException("Imagem muito grande. Máximo permitido: 5MB");
+                }
+
+                // Validar tipo da imagem
+                String contentType = imagem.getContentType();
+                if (contentType == null || !contentType.startsWith("image/")) {
+                    throw new IllegalArgumentException("Arquivo deve ser uma imagem válida");
+                }
+
                 Map uploadResult = cloudinary.uploader().upload(imagem.getBytes(), ObjectUtils.emptyMap());
                 noticia.setImagemUrl(uploadResult.get("url").toString());
+                System.out.println("Imagem enviada com sucesso para Cloudinary: " + noticia.getImagemUrl());
             } catch (IOException e) {
-                // Logar o erro e continuar sem imagem
+                System.err.println("Erro de I/O ao fazer upload da imagem: " + e.getMessage());
+                throw new RuntimeException("Erro ao processar a imagem: " + e.getMessage());
+            } catch (Exception e) {
                 System.err.println("Erro ao fazer upload da imagem: " + e.getMessage());
-                // Não lançar exceção, permitir salvar notícia sem imagem
+                throw new RuntimeException("Erro ao fazer upload da imagem: " + e.getMessage());
             }
         }
 
-        return repository.save(noticia);
+        try {
+            return repository.save(noticia);
+        } catch (Exception e) {
+            System.err.println("Erro ao salvar notícia no banco de dados: " + e.getMessage());
+            throw new RuntimeException("Erro ao salvar notícia no banco de dados: " + e.getMessage());
+        }
     }
 }
 
