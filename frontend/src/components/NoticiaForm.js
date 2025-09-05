@@ -19,8 +19,9 @@ const NoticiaForm = ({ onNewNoticia }) => {
     formData.append('imagem', imagem);
 
     try {
+      const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
       const response = await axios.post(
-        process.env.REACT_APP_API_URL + '/api/noticias', 
+        apiBase + '/api/noticias',
         formData,
         {
           headers: {

@@ -9,7 +9,8 @@ function App() {
 
   const carregarNoticias = async () => {
     try {
-      const response = await fetch(process.env.REACT_APP_API_URL + '/api/noticias');
+      const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      const response = await fetch(apiBase + '/api/noticias');
       const data = await response.json();
       setNoticias(data);
     } catch (error) {
