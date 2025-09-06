@@ -70,6 +70,28 @@ public class NoticiaController {
         }
     }
 
+    @GetMapping("/categorias")
+    public ResponseEntity<List<String>> getCategorias() {
+        List<String> categorias = noticiaService.getCategorias();
+        return ResponseEntity.ok(categorias);
+    }
+
+    @GetMapping("/categoria/{categoria}")
+    public ResponseEntity<List<Noticia>> getNoticiasByCategoria(@PathVariable String categoria) {
+        List<Noticia> noticias = noticiaService.buscarPorCategoria(categoria);
+        return ResponseEntity.ok(noticias);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletarNoticia(@PathVariable String id) {
+        boolean deleted = noticiaService.deletar(id);
+        if (deleted) {
+            return ResponseEntity.ok().build();
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/healthz")
     public ResponseEntity<String> healthCheck() {
         return ResponseEntity.ok("OK");

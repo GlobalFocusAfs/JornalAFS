@@ -5,6 +5,10 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [likes, setLikes] = useState(0);
+  const [comments, setComments] = useState([]);
+  const [newCommentAutor, setNewCommentAutor] = useState('');
+  const [newCommentConteudo, setNewCommentConteudo] = useState('');
+  const [submittingComment, setSubmittingComment] = useState(false);
 
   useEffect(() => {
     const fetchNoticia = async () => {
@@ -23,7 +27,23 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
         setLoading(false);
       }
     };
+
+    const fetchComments = async () => {
+      try {
+        const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+        const response = await fetch(`${apiBase}/api/comments/noticia/${noticiaId}`);
+        if (!response.ok) {
+          throw new Error('Erro ao carregar comentários');
+        }
+        const data = await response.json();
+        setComments(data);
+      } catch (err) {
+        console.error(err.message);
+      }
+    };
+
     fetchNoticia();
+    fetchComments();
   }, [noticiaId]);
 
   const getLikedNews = () => {
@@ -58,6 +78,37 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
     }
   };
 
+  const handleAddComment = async () => {
+    if (!newCommentAutor.trim() || !newCommentConteudo.trim()) {
+      alert('Por favor, preencha seu nome e comentário.');
+      return;
+    }
+    setSubmittingComment(true);
+    try {
+      const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      const response = await fetch(`${apiBase}/api/comments`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          noticiaId,
+          autor: newCommentAutor.trim(),
+          conteudo: newCommentConteudo.trim(),
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Erro ao adicionar comentário');
+      }
+      const savedComment = await response.json();
+      setComments([savedComment, ...comments]);
+      setNewCommentAutor('');
+      setNewCommentConteudo('');
+    } catch (err) {
+      alert(err.message);
+    } finally {
+      setSubmittingComment(false);
+    }
+  };
+
   if (loading) return <p>Carregando notícia...</p>;
   if (error) return <p>Erro: {error}</p>;
   if (!noticia) return <p>Notícia não encontrada.</p>;
@@ -87,6 +138,40 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
       <button onClick={handleCurtir} disabled={isLiked}>
         {isLiked ? 'Curtido' : 'Curtir'}
       </button>
+
+      <div className="comments-section">
+        <h3>Comentários</h3>
+        <div className="add-comment">
+          <input
+            type="text"
+            placeholder="Seu nome"
+            value={newCommentAutor}
+            onChange={(e) => setNewCommentAutor(e.target.value)}
+            disabled={submittingComment}
+          />
+          <textarea
+            placeholder="Seu comentário"
+            value={newCommentConteudo}
+            onChange={(e) => setNewCommentConteudo(e.target.value)}
+            disabled={submittingComment}
+          />
+          <button onClick={handleAddComment} disabled={submittingComment}>
+            {submittingComment ? 'Enviando...' : 'Adicionar Comentário'}
+          </button>
+        </div>
+        {comments.length === 0 ? (
+          <p>Nenhum comentário ainda. Seja o primeiro a comentar!</p>
+        ) : (
+          <ul className="comments-list">
+            {comments.map((comment) => (
+              <li key={comment.id}>
+                <strong>{comment.autor}</strong> em {new Date(comment.dataComentario).toLocaleString()}
+                <p>{comment.conteudo}</p>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
     </div>
   );
 };

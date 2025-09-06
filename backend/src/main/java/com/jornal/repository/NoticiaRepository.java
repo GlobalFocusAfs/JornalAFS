@@ -6,5 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface NoticiaRepository extends MongoRepository<Noticia, String> {
+    List<Noticia> findByCategoria(String categoria);
+    List<String> findDistinctCategoria();
 }
 

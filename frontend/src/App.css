@@ -1008,6 +1008,221 @@ footer {
   box-shadow: var(--shadow-md);
 }
 
+/* Comments Section */
+.comments-section {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-secondary);
+  border-radius: 10px;
+  border: 1px solid var(--border-color);
+}
+
+.comments-section h3 {
+  margin-bottom: 1.5rem;
+  color: var(--primary-color);
+  font-size: 1.3rem;
+}
+
+.add-comment {
+  margin-bottom: 2rem;
+  padding: 1.5rem;
+  background: var(--bg-primary);
+  border-radius: 10px;
+  box-shadow: var(--shadow-sm);
+}
+
+.add-comment input,
+.add-comment textarea {
+  width: 100%;
+  padding: 0.75rem;
+  margin-bottom: 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  font-size: 1rem;
+  font-family: inherit;
+  transition: border-color 0.3s ease;
+}
+
+.add-comment input:focus,
+.add-comment textarea:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 83, 156, 0.1);
+}
+
+.add-comment textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.add-comment button {
+  background: var(--secondary-color);
+  color: white;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  border-radius: 25px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.add-comment button:hover:not(:disabled) {
+  background: var(--secondary-dark);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.add-comment button:disabled {
+  background: var(--text-light);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.comments-list {
+  list-style: none;
+  padding: 0;
+}
+
+.comments-list li {
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  box-shadow: var(--shadow-sm);
+  border-left: 4px solid var(--primary-color);
+}
+
+.comments-list li strong {
+  color: var(--primary-color);
+  font-weight: 600;
+}
+
+.comments-list li small {
+  color: var(--text-light);
+  font-size: 0.85rem;
+  margin-left: 1rem;
+}
+
+.comments-list li p {
+  margin: 0.5rem 0 0 0;
+  color: var(--text-secondary);
+  line-height: 1.5;
+}
+
+/* Category Filter */
+.noticias-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  padding: 1rem 0;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.noticias-header h2 {
+  color: var(--primary-color);
+  font-size: 2rem;
+  margin: 0;
+}
+
+.categoria-filter {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.categoria-filter label {
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.categoria-filter select {
+  padding: 0.5rem 1rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: border-color 0.3s ease;
+}
+
+.categoria-filter select:focus {
+  outline: none;
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 2px rgba(0, 83, 156, 0.1);
+}
+
+/* Enhanced Button Styles */
+button {
+  font-family: inherit;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: 0.5px;
+}
+
+button:hover {
+  transform: translateY(-2px);
+}
+
+button:active {
+  transform: translateY(0);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+  transform: none !important;
+}
+
+/* Specific Button Enhancements */
+.auth-buttons button,
+.search-bar button,
+.login-form button,
+.poll-form button,
+.noticia-form button,
+.noticia-detail button,
+.add-comment button,
+.admin-actions button {
+  position: relative;
+  overflow: hidden;
+}
+
+.auth-buttons button::before,
+.search-bar button::before,
+.login-form button::before,
+.poll-form button::before,
+.noticia-form button::before,
+.noticia-detail button::before,
+.add-comment button::before,
+.admin-actions button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.auth-buttons button:hover::before,
+.search-bar button:hover::before,
+.login-form button:hover::before,
+.poll-form button:hover::before,
+.noticia-form button:hover::before,
+.noticia-detail button:hover::before,
+.add-comment button:hover::before,
+.admin-actions button:hover::before {
+  left: 100%;
+}
+
 @media (max-width: 768px) {
   header h1 {
     font-size: 2rem;

@@ -77,5 +77,21 @@ public class NoticiaService {
             throw new RuntimeException("Erro ao salvar notícia no banco de dados: " + e.getMessage());
         }
     }
+
+    public List<String> getCategorias() {
+        return repository.findDistinctCategoria();
+    }
+
+    public List<Noticia> buscarPorCategoria(String categoria) {
+        return repository.findByCategoria(categoria);
+    }
+
+    public boolean deletar(String id) {
+        if (repository.existsById(id)) {
+            repository.deleteById(id);
+            return true;
+        }
+        return false;
+    }
 }
 

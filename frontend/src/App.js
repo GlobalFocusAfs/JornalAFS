@@ -14,6 +14,8 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [selectedNoticiaId, setSelectedNoticiaId] = useState(null);
+  const [categorias, setCategorias] = useState([]);
+  const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
 
   const carregarNoticias = async () => {
     try {
@@ -118,7 +120,28 @@ function App() {
           <p>Carregando notícias...</p>
         ) : (
           <div id="noticias-section">
-            <NoticiaList noticias={noticias} onSelectNoticia={setSelectedNoticiaId} isLoggedIn={isLoggedIn} onDelete={carregarNoticias} />
+            <div className="noticias-header">
+              <h2>Notícias</h2>
+              <div className="categoria-filter">
+                <label htmlFor="categoria-select">Filtrar por categoria:</label>
+                <select
+                  id="categoria-select"
+                  value={categoriaSelecionada}
+                  onChange={(e) => setCategoriaSelecionada(e.target.value)}
+                >
+                  <option value="">Todas as categorias</option>
+                  {[...new Set(noticias.map(noticia => noticia.categoria).filter(Boolean))].map(categoria => (
+                    <option key={categoria} value={categoria}>{categoria}</option>
+                  ))}
+                </select>
+              </div>
+            </div>
+            <NoticiaList
+              noticias={categoriaSelecionada ? noticias.filter(noticia => noticia.categoria === categoriaSelecionada) : noticias}
+              onSelectNoticia={setSelectedNoticiaId}
+              isLoggedIn={isLoggedIn}
+              onDelete={carregarNoticias}
+            />
           </div>
         )}
         <div id="enquetes-section">
