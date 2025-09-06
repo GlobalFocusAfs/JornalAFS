@@ -175,6 +175,8 @@ p {
   border-radius: 25px;
   padding: 0.5rem;
   box-shadow: var(--shadow-sm);
+  flex: 1;
+  max-width: 250px;
 }
 
 .search-bar input {
@@ -183,7 +185,8 @@ p {
   padding: 0.5rem 1rem;
   border-radius: 20px;
   font-size: 0.9rem;
-  width: 200px;
+  max-width: 200px;
+  width: 100%;
   background: transparent;
 }
 
