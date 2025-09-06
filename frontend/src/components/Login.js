@@ -53,6 +53,12 @@ const Login = ({ onLogin }) => {
           {logando ? 'Logando...' : 'Entrar'}
         </button>
       </form>
+      {onLogin && (
+        <div className="admin-actions">
+          <h3>Ações de Administrador</h3>
+          <button onClick={() => window.location.reload()}>Excluir Publicações</button>
+        </div>
+      )}
     </div>
   );
 };

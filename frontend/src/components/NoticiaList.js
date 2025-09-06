@@ -1,6 +1,6 @@
 import React from 'react';
 
-const NoticiaList = ({ noticias, onSelectNoticia }) => {
+const NoticiaList = ({ noticias, onSelectNoticia, isLoggedIn, onDelete }) => {
   const getLikedNews = () => {
     const liked = localStorage.getItem('likedNews');
     return liked ? JSON.parse(liked) : [];
@@ -77,6 +77,31 @@ const NoticiaList = ({ noticias, onSelectNoticia }) => {
                 <button className="ler-mais-btn" onClick={() => onSelectNoticia(noticia.id)}>
                   Ler mais
                 </button>
+                {isLoggedIn && (
+                  <button className="excluir-btn" onClick={async (e) => {
+                    e.stopPropagation();
+                    if (window.confirm('Tem certeza que deseja excluir esta notícia?')) {
+                      try {
+                        const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+                        const response = await fetch(`${apiBase}/api/noticias/${noticia.id}`, {
+                          method: 'DELETE',
+                          headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                          }
+                        });
+                        if (!response.ok) {
+                          throw new Error('Erro ao excluir a notícia');
+                        }
+                        alert('Notícia excluída com sucesso!');
+                        onDelete();
+                      } catch (error) {
+                        alert('Erro ao excluir a notícia: ' + error.message);
+                      }
+                    }
+                  }}>
+                    Excluir
+                  </button>
+                )}
               </div>
             </div>
           </article>

@@ -82,11 +82,11 @@ function App() {
           </div>
           <nav className="main-navigation">
             <ul>
-              <li><a href="#inicio" className="nav-link">Início</a></li>
-              <li><a href="#noticias" className="nav-link">Notícias</a></li>
-              <li><a href="#enquetes" className="nav-link">Enquetes</a></li>
-              <li><a href="#arquivo" className="nav-link">Arquivo</a></li>
-              <li><a href="#contato" className="nav-link">Contato</a></li>
+              <li><a href="#inicio" className="nav-link" onClick={(e) => { e.preventDefault(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}>Início</a></li>
+              <li><a href="#noticias" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('noticias-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Notícias</a></li>
+              <li><a href="#enquetes" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('enquetes-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Enquetes</a></li>
+              <li><a href="#arquivo" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('arquivo-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Arquivo</a></li>
+              <li><a href="#contato" className="nav-link" onClick={(e) => { e.preventDefault(); window.open('https://wa.me/5588999999999', '_blank'); }}>Contato</a></li>
             </ul>
           </nav>
           <div className="header-right">
@@ -117,9 +117,34 @@ function App() {
         ) : carregando ? (
           <p>Carregando notícias...</p>
         ) : (
-          <NoticiaList noticias={noticias} onSelectNoticia={setSelectedNoticiaId} />
+          <div id="noticias-section">
+            <NoticiaList noticias={noticias} onSelectNoticia={setSelectedNoticiaId} isLoggedIn={isLoggedIn} onDelete={carregarNoticias} />
+          </div>
         )}
-        <PollList polls={polls} onVote={carregarPolls} />
+        <div id="enquetes-section">
+          <PollList polls={polls} onVote={carregarPolls} />
+        </div>
+        <div id="arquivo-section" className="arquivo-section">
+          <h2>Arquivo de Imagens</h2>
+          <div className="arquivo-gallery">
+            <div className="arquivo-item">
+              <img src="https://via.placeholder.com/300x200?text=Imagem+1" alt="Imagem 1" />
+              <p>Imagem do evento escolar</p>
+            </div>
+            <div className="arquivo-item">
+              <img src="https://via.placeholder.com/300x200?text=Imagem+2" alt="Imagem 2" />
+              <p>Atividades extracurriculares</p>
+            </div>
+            <div className="arquivo-item">
+              <img src="https://via.placeholder.com/300x200?text=Imagem+3" alt="Imagem 3" />
+              <p>Projeto científico</p>
+            </div>
+            <div className="arquivo-item">
+              <img src="https://via.placeholder.com/300x200?text=Imagem+4" alt="Imagem 4" />
+              <p>Formatura 2024</p>
+            </div>
+          </div>
+        </div>
       </main>
       <footer>
         <div className="footer-content">
