@@ -1244,14 +1244,22 @@ button:disabled {
 /* Loading Styles */
 .loading-container {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 50px 20px;
   min-height: 200px;
+  gap: 10px;
+}
+
+.loading-text {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: var(--primary-color);
 }
 
 .loading-gif {
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 200px;
   object-fit: contain;
 }

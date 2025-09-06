@@ -126,7 +126,8 @@ function App() {
           <NoticiaDetail noticiaId={selectedNoticiaId} onBack={() => setSelectedNoticiaId(null)} />
         ) : carregando ? (
           <div className="loading-container">
-            <img src="/Espera_ái.png" alt="Carregando notícias...(2 minutos no máximo)" className="loading-gif" />
+            <div className="loading-text">(máximo de 3 minutos)</div>
+            <img src="/Espera_ái.png" alt="Carregando notícias...(3 minutos no máximo)" className="loading-gif" />
           </div>
         ) : (
           <div id="noticias-section">
