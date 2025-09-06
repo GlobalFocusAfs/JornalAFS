@@ -54,6 +54,7 @@
 - [ ] Make news cards full width on mobile
 - [ ] Increase button sizes for mobile
 - [ ] Test and fix responsive design
+- [x] Fix mobile proportion: reduce loading gif size, add flex-wrap to action buttons, adjust gallery minmax, add overflow-x hidden
 
 ## Phase 9: Testing & Polish
 - [ ] Test all features across devices
