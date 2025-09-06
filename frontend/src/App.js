@@ -96,7 +96,7 @@ function App() {
               <li><a href="#noticias" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('noticias-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Notícias</a></li>
               <li><a href="#enquetes" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('enquetes-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Enquetes</a></li>
               <li><a href="#arquivo" className="nav-link" onClick={(e) => { e.preventDefault(); document.getElementById('arquivo-section')?.scrollIntoView({ behavior: 'smooth' }); }}>Arquivo</a></li>
-              <li><a href="#contato" className="nav-link" onClick={(e) => { e.preventDefault(); window.open('https://wa.me/5588999999999', '_blank'); }}>Contato</a></li>
+              <li><a href="https://wa.me/+558594151359" className="nav-link" onClick={(e) => { e.preventDefault(); window.open('https://wa.me/+558594151359', '_blank'); }}>Contato</a></li>
             </ul>
           </nav>
           <div className="header-right">
@@ -189,7 +189,7 @@ function App() {
           <div className="footer-section">
             <h3>Contato</h3>
             <p>📧 contato@eeepafs.edu.br</p>
-            <p>📞 (88) 9999-9999</p>
+            <p>📞 (88)9415-1359</p>
             <p>📍 Redenção - Ceará</p>
           </div>
           <div className="footer-section">
