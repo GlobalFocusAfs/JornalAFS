@@ -91,7 +91,7 @@ function App() {
           </nav>
           <div className="header-right">
             <div className="search-bar">
-              <input type="text" placeholder="Buscar notícias..." />
+              <input type="text" placeholder="Digite sua pesquisa..." />
               <button type="submit"><i className="fas fa-search"></i></button>
             </div>
             <div className="auth-buttons">

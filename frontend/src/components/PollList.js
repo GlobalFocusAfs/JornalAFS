@@ -33,22 +33,49 @@ const PollList = ({ polls, onVote }) => {
     <div className="poll-list">
       <h2>Enquetes</h2>
       {polls.length === 0 ? (
-        <p>Nenhuma enquete disponível.</p>
-      ) : (
-        polls.map(poll => (
-          <div key={poll.id} className="poll-item">
-            <h3>{poll.question}</h3>
-            <ul>
-              {poll.options.map(option => (
-                <li key={option}>
-                  <button onClick={() => handleVote(poll.id, option)}>
-                    {option} ({poll.votes[option] || 0} votos)
-                  </button>
-                </li>
-              ))}
-            </ul>
+        <div className="no-polls">
+          <div className="no-polls-illustration">
+            <i className="fas fa-chart-bar"></i>
           </div>
-        ))
+          <h3>Nenhuma enquete ativa no momento</h3>
+          <p>Volte em breve para participar das nossas enquetes!</p>
+        </div>
+      ) : (
+        polls.map(poll => {
+          const totalVotes = Object.values(poll.votes || {}).reduce((sum, votes) => sum + votes, 0);
+          return (
+            <div key={poll.id} className="poll-item">
+              <h3>{poll.question}</h3>
+              <div className="poll-options">
+                {poll.options.map(option => {
+                  const voteCount = poll.votes[option] || 0;
+                  const percentage = totalVotes > 0 ? Math.round((voteCount / totalVotes) * 100) : 0;
+                  return (
+                    <div key={option} className="poll-option">
+                      <button
+                        className="vote-button"
+                        onClick={() => handleVote(poll.id, option)}
+                      >
+                        <span className="option-text">{option}</span>
+                        <span className="vote-count">({voteCount})</span>
+                      </button>
+                      <div className="progress-bar">
+                        <div
+                          className="progress-fill"
+                          style={{ width: `${percentage}%` }}
+                        ></div>
+                      </div>
+                      <span className="percentage">{percentage}%</span>
+                    </div>
+                  );
+                })}
+              </div>
+              <div className="total-votes">
+                Total de votos: {totalVotes}
+              </div>
+            </div>
+          );
+        })
       )}
     </div>
   );
