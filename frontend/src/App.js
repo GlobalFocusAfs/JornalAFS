@@ -125,24 +125,28 @@ function App() {
           <PollList polls={polls} onVote={carregarPolls} />
         </div>
         <div id="arquivo-section" className="arquivo-section">
-          <h2>Arquivo de Imagens</h2>
+          <h2>Arquivo de Imagens das Publicações</h2>
           <div className="arquivo-gallery">
-            <div className="arquivo-item">
-              <img src="https://via.placeholder.com/300x200?text=Imagem+1" alt="Imagem 1" />
-              <p>Imagem do evento escolar</p>
-            </div>
-            <div className="arquivo-item">
-              <img src="https://via.placeholder.com/300x200?text=Imagem+2" alt="Imagem 2" />
-              <p>Atividades extracurriculares</p>
-            </div>
-            <div className="arquivo-item">
-              <img src="https://via.placeholder.com/300x200?text=Imagem+3" alt="Imagem 3" />
-              <p>Projeto científico</p>
-            </div>
-            <div className="arquivo-item">
-              <img src="https://via.placeholder.com/300x200?text=Imagem+4" alt="Imagem 4" />
-              <p>Formatura 2024</p>
-            </div>
+            {noticias.filter(noticia => noticia.imagemUrl).length > 0 ? (
+              noticias
+                .filter(noticia => noticia.imagemUrl)
+                .map(noticia => (
+                  <div key={noticia.id} className="arquivo-item">
+                    <img src={noticia.imagemUrl} alt={noticia.titulo} />
+                    <div className="arquivo-item-info">
+                      <h3>{noticia.titulo}</h3>
+                      <p>{noticia.categoria || 'Notícia'}</p>
+                      <small>Publicado em {new Date(noticia.dataPublicacao).toLocaleDateString()}</small>
+                    </div>
+                  </div>
+                ))
+            ) : (
+              <div className="no-images">
+                <i className="fas fa-images" style={{ fontSize: '4rem', color: 'var(--text-light)', marginBottom: '1rem' }}></i>
+                <h3>Nenhuma imagem encontrada</h3>
+                <p>As imagens das publicações aparecerão aqui quando forem adicionadas.</p>
+              </div>
+            )}
           </div>
         </div>
       </main>

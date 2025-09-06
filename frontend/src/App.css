@@ -911,12 +911,49 @@ footer {
   object-fit: cover;
 }
 
-.arquivo-item p {
+.arquivo-item-info {
   padding: 1rem;
-  margin: 0;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border-color);
+}
+
+.arquivo-item-info h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--primary-color);
+  line-height: 1.3;
+}
+
+.arquivo-item-info p {
+  margin: 0 0 0.5rem 0;
+  color: var(--secondary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.arquivo-item-info small {
+  color: var(--text-light);
+  font-size: 0.8rem;
+}
+
+.no-images {
+  grid-column: 1 / -1;
   text-align: center;
+  padding: 3rem 2rem;
+  background: var(--bg-secondary);
+  border-radius: 15px;
+  box-shadow: var(--shadow-lg);
+}
+
+.no-images h3 {
   color: var(--text-secondary);
-  font-weight: 500;
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.no-images p {
+  color: var(--text-light);
+  font-size: 1.1rem;
 }
 
 .excluir-btn {
