@@ -26,7 +26,21 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
     fetchNoticia();
   }, [noticiaId]);
 
+  const getLikedNews = () => {
+    const liked = localStorage.getItem('likedNews');
+    return liked ? JSON.parse(liked) : [];
+  };
+
+  const setLikedNews = (liked) => {
+    localStorage.setItem('likedNews', JSON.stringify(liked));
+  };
+
   const handleCurtir = async () => {
+    const likedNews = getLikedNews();
+    if (likedNews.includes(noticiaId)) {
+      alert('Você já curtiu esta notícia!');
+      return;
+    }
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
       const response = await fetch(`${apiBase}/api/noticias/${noticiaId}/like`, {
@@ -37,6 +51,8 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
       }
       const data = await response.json();
       setLikes(data.likes || likes + 1);
+      likedNews.push(noticiaId);
+      setLikedNews(likedNews);
     } catch (err) {
       alert(err.message);
     }
@@ -45,6 +61,9 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
   if (loading) return <p>Carregando notícia...</p>;
   if (error) return <p>Erro: {error}</p>;
   if (!noticia) return <p>Notícia não encontrada.</p>;
+
+  const likedNews = getLikedNews();
+  const isLiked = likedNews.includes(noticiaId);
 
   return (
     <div className="noticia-detail">
@@ -65,7 +84,9 @@ const NoticiaDetail = ({ noticiaId, onBack }) => {
         <span>👁️ {noticia.visualizacoes || 0}</span>
         <span>❤️ {likes}</span>
       </div>
-      <button onClick={handleCurtir}>Curtir</button>
+      <button onClick={handleCurtir} disabled={isLiked}>
+        {isLiked ? 'Curtido' : 'Curtir'}
+      </button>
     </div>
   );
 };
