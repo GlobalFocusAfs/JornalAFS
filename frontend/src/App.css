@@ -1263,3 +1263,36 @@ button:disabled {
   height: 1500px;
   object-fit: contain;
 }
+
+/* Responsive Loading Styles for Mobile */
+@media (max-width: 768px) {
+  .loading-container {
+    padding: 30px 15px;
+    min-height: 150px;
+  }
+
+  .loading-text {
+    font-size: 1rem;
+  }
+
+  .loading-gif {
+    width: 300px;
+    height: 400px;
+  }
+}
+
+@media (max-width: 480px) {
+  .loading-container {
+    padding: 20px 10px;
+    min-height: 120px;
+  }
+
+  .loading-text {
+    font-size: 0.9rem;
+  }
+
+  .loading-gif {
+    width: 200px;
+    height: 300px;
+  }
+}
