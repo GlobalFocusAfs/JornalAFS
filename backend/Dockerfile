@@ -14,4 +14,4 @@ RUN mvn clean package -DskipTests
 
 # Copy the built JAR
 RUN cp target/backend-1.0.0.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+ENTRYPOINT ["java","-Djdk.tls.client.protocols=TLSv1.2,TLSv1.3","-Dhttps.protocols=TLSv1.2,TLSv1.3","-jar","app.jar"]
