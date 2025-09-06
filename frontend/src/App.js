@@ -26,6 +26,13 @@ function App() {
       clearTimeout(timeoutId);
       const data = await response.json();
       setNoticias(Array.isArray(data) ? data : []);
+      // Extract unique categories from noticias and setCategorias
+      if (Array.isArray(data)) {
+        const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(Boolean))];
+        setCategorias(uniqueCategories);
+      } else {
+        setCategorias([]);
+      }
     } catch (error) {
       if (error.name === 'AbortError') {
         console.error('Request timed out');
@@ -33,6 +40,7 @@ function App() {
         console.error('Erro ao carregar notícias:', error);
       }
       setNoticias([]);
+      setCategorias([]);
     } finally {
       setCarregando(false);
     }
@@ -117,7 +125,9 @@ function App() {
         {selectedNoticiaId ? (
           <NoticiaDetail noticiaId={selectedNoticiaId} onBack={() => setSelectedNoticiaId(null)} />
         ) : carregando ? (
-          <p>Carregando notícias...</p>
+          <div className="loading-container">
+            <img src="/Espera_ái.png" alt="Carregando notícias...(2 minutos no máximo)" className="loading-gif" />
+          </div>
         ) : (
           <div id="noticias-section">
             <div className="noticias-header">
@@ -130,7 +140,7 @@ function App() {
                   onChange={(e) => setCategoriaSelecionada(e.target.value)}
                 >
                   <option value="">Todas as categorias</option>
-                  {[...new Set(noticias.map(noticia => noticia.categoria).filter(Boolean))].map(categoria => (
+                  {categorias.map(categoria => (
                     <option key={categoria} value={categoria}>{categoria}</option>
                   ))}
                 </select>
