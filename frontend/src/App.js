@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import NoticiaList from './components/NoticiaList';
 import NoticiaForm from './components/NoticiaForm';
+import NoticiaDetail from './components/NoticiaDetail';
 import Login from './components/Login';
 import PollForm from './components/PollForm';
 import PollList from './components/PollList';
@@ -12,6 +13,7 @@ function App() {
   const [carregando, setCarregando] = useState(true);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
+  const [selectedNoticiaId, setSelectedNoticiaId] = useState(null);
 
   const carregarNoticias = async () => {
     try {
@@ -70,11 +72,6 @@ function App() {
             </div>
           </div>
           <div className="header-right">
-            <div className="social-icons">
-              <a href="#" className="social-icon">📘</a>
-              <a href="#" className="social-icon">📷</a>
-              <a href="#" className="social-icon">💬</a>
-            </div>
             <div className="auth-buttons">
               {isLoggedIn ? (
                 <button onClick={handleLogout}>Logout</button>
@@ -93,10 +90,12 @@ function App() {
             <PollForm onNewPoll={carregarPolls} />
           </>
         )}
-        {carregando ? (
+        {selectedNoticiaId ? (
+          <NoticiaDetail noticiaId={selectedNoticiaId} onBack={() => setSelectedNoticiaId(null)} />
+        ) : carregando ? (
           <p>Carregando notícias...</p>
         ) : (
-          <NoticiaList noticias={noticias} />
+          <NoticiaList noticias={noticias} onSelectNoticia={setSelectedNoticiaId} />
         )}
         <PollList polls={polls} onVote={carregarPolls} />
       </main>

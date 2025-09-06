@@ -25,6 +25,19 @@ public class NoticiaService {
         return repository.findAll();
     }
 
+    public Noticia buscarPorId(String id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public Noticia curtir(String id) {
+        Noticia noticia = repository.findById(id).orElse(null);
+        if (noticia != null) {
+            noticia.setLikes(noticia.getLikes() + 1);
+            return repository.save(noticia);
+        }
+        return null;
+    }
+
     public Noticia salvar(String titulo, String conteudo, String autor, MultipartFile imagem) {
         Noticia noticia = new Noticia();
         noticia.setTitulo(titulo);

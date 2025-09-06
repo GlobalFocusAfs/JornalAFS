@@ -20,6 +20,24 @@ public class NoticiaController {
         return noticiaService.listarTodas();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<?> obterNoticiaPorId(@PathVariable String id) {
+        Noticia noticia = noticiaService.buscarPorId(id);
+        if (noticia == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(noticia);
+    }
+
+    @PostMapping("/{id}/like")
+    public ResponseEntity<?> curtirNoticia(@PathVariable String id) {
+        Noticia noticia = noticiaService.curtir(id);
+        if (noticia == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(noticia);
+    }
+
     @PostMapping
     public ResponseEntity<?> salvarNoticia(
             @RequestParam String titulo,
