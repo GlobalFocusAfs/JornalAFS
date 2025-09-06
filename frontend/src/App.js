@@ -18,11 +18,18 @@ function App() {
   const carregarNoticias = async () => {
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
-      const response = await fetch(apiBase + '/api/noticias');
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 200000); // 10 seconds timeout
+      const response = await fetch(apiBase + '/api/noticias', { signal: controller.signal });
+      clearTimeout(timeoutId);
       const data = await response.json();
       setNoticias(Array.isArray(data) ? data : []);
     } catch (error) {
-      console.error('Erro ao carregar notícias:', error);
+      if (error.name === 'AbortError') {
+        console.error('Request timed out');
+      } else {
+        console.error('Erro ao carregar notícias:', error);
+      }
       setNoticias([]);
     } finally {
       setCarregando(false);
@@ -62,16 +69,31 @@ function App() {
 
   return (
     <div className="App">
-      <header>
+      <header className="sticky-header">
         <div className="header-content">
           <div className="header-left">
-            <div className="logo">J</div>
+            <div className="logo">
+              <i className="fas fa-graduation-cap"></i>
+            </div>
             <div className="header-text">
               <h1>Jornal da EEEP Adolfo Ferreira de Sousa</h1>
               <p>Redenção - Ceará</p>
             </div>
           </div>
+          <nav className="main-navigation">
+            <ul>
+              <li><a href="#inicio" className="nav-link">Início</a></li>
+              <li><a href="#noticias" className="nav-link">Notícias</a></li>
+              <li><a href="#enquetes" className="nav-link">Enquetes</a></li>
+              <li><a href="#arquivo" className="nav-link">Arquivo</a></li>
+              <li><a href="#contato" className="nav-link">Contato</a></li>
+            </ul>
+          </nav>
           <div className="header-right">
+            <div className="search-bar">
+              <input type="text" placeholder="Buscar notícias..." />
+              <button type="submit"><i className="fas fa-search"></i></button>
+            </div>
             <div className="auth-buttons">
               {isLoggedIn ? (
                 <button onClick={handleLogout}>Logout</button>
