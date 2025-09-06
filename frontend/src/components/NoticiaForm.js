@@ -20,6 +20,7 @@ const NoticiaForm = ({ onNewNoticia }) => {
       formData.append('imagem', imagem);
     }
 
+    const token = localStorage.getItem('token');
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
       console.log('Enviando notícia para:', apiBase + '/api/noticias');
@@ -28,7 +29,8 @@ const NoticiaForm = ({ onNewNoticia }) => {
         formData,
         {
           headers: {
-            'Content-Type': 'multipart/form-data'
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
           }
         }
       );
