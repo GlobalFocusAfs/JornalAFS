@@ -1320,6 +1320,27 @@ button:disabled {
   .arquivo-item-info h3 {
     font-size: 1rem;
   }
+
+  /* Fix for category filter to prevent overflow */
+  .categoria-filter {
+    flex-wrap: wrap;
+    max-width: 100%;
+  }
+
+  .categoria-filter select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .noticias-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .noticias-header h2 {
+    font-size: 1.5rem;
+  }
 }
 
 @media (max-width: 480px) {
