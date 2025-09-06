@@ -61,18 +61,32 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>Jornal da EEEP Adolfo Ferreira de Sousa</h1>
-        <p>Redenção - Ceará</p>
-        <div className="auth-buttons">
-          {isLoggedIn ? (
-            <button onClick={handleLogout}>Logout</button>
-          ) : (
-            <button onClick={() => setShowLogin(true)}>Login</button>
-          )}
+        <div className="header-content">
+          <div className="header-left">
+            <div className="logo">J</div>
+            <div className="header-text">
+              <h1>Jornal da EEEP Adolfo Ferreira de Sousa</h1>
+              <p>Redenção - Ceará</p>
+            </div>
+          </div>
+          <div className="header-right">
+            <div className="social-icons">
+              <a href="#" className="social-icon">📘</a>
+              <a href="#" className="social-icon">📷</a>
+              <a href="#" className="social-icon">💬</a>
+            </div>
+            <div className="auth-buttons">
+              {isLoggedIn ? (
+                <button onClick={handleLogout}>Logout</button>
+              ) : (
+                <button onClick={() => setShowLogin(!showLogin)}>Login</button>
+              )}
+            </div>
+          </div>
         </div>
       </header>
       <main>
-        {!isLoggedIn && <Login onLogin={handleLogin} />}
+        {!isLoggedIn && showLogin && <Login onLogin={handleLogin} />}
         {isLoggedIn && (
           <>
             <NoticiaForm onNewNoticia={carregarNoticias} />
@@ -87,7 +101,29 @@ function App() {
         <PollList polls={polls} onVote={carregarPolls} />
       </main>
       <footer>
-        <p>&copy; 2025 EEEP Adolfo Ferreira de Sousa - Todos os direitos reservados</p>
+        <div className="footer-content">
+          <div className="footer-section">
+            <h3>Contato</h3>
+            <p>📧 contato@eeepafs.edu.br</p>
+            <p>📞 (88) 9999-9999</p>
+            <p>📍 Redenção - Ceará</p>
+          </div>
+          <div className="footer-section">
+            <h3>Links Úteis</h3>
+            <p><a href="#">Sobre o Jornal</a></p>
+            <p><a href="#">Equipe</a></p>
+            <p><a href="#">Arquivo</a></p>
+          </div>
+          <div className="footer-section">
+            <h3>Navegação</h3>
+            <p><a href="#">Início</a></p>
+            <p><a href="#">Notícias</a></p>
+            <p><a href="#">Contato</a></p>
+          </div>
+        </div>
+        <div className="footer-bottom">
+          <p>&copy; 2025 EEEP Adolfo Ferreira de Sousa - Todos os direitos reservados</p>
+        </div>
       </footer>
     </div>
   );

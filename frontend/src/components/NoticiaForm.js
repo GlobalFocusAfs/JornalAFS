@@ -5,8 +5,20 @@ const NoticiaForm = ({ onNewNoticia }) => {
   const [titulo, setTitulo] = useState('');
   const [conteudo, setConteudo] = useState('');
   const [autor, setAutor] = useState('');
+  const [categoria, setCategoria] = useState('');
+  const [tags, setTags] = useState('');
+  const [destaque, setDestaque] = useState(false);
   const [imagem, setImagem] = useState(null);
   const [enviando, setEnviando] = useState(false);
+
+  const categorias = [
+    'Educação',
+    'Eventos',
+    'Premiações',
+    'Esportes',
+    'Cultura',
+    'Opinião'
+  ];
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -16,6 +28,9 @@ const NoticiaForm = ({ onNewNoticia }) => {
     formData.append('titulo', titulo);
     formData.append('conteudo', conteudo);
     formData.append('autor', autor);
+    formData.append('categoria', categoria);
+    formData.append('tags', tags);
+    formData.append('destaque', destaque.toString());
     if (imagem) {
       formData.append('imagem', imagem);
     }
@@ -40,6 +55,9 @@ const NoticiaForm = ({ onNewNoticia }) => {
         setTitulo('');
         setConteudo('');
         setAutor('');
+        setCategoria('');
+        setTags('');
+        setDestaque(false);
         setImagem(null);
         document.getElementById('imagem-input').value = '';
         onNewNoticia();
@@ -81,6 +99,30 @@ const NoticiaForm = ({ onNewNoticia }) => {
         onChange={(e) => setAutor(e.target.value)}
         required
       />
+      <select
+        value={categoria}
+        onChange={(e) => setCategoria(e.target.value)}
+        required
+      >
+        <option value="">Selecione uma categoria</option>
+        {categorias.map((cat) => (
+          <option key={cat} value={cat}>{cat}</option>
+        ))}
+      </select>
+      <input
+        type="text"
+        placeholder="Tags (separadas por vírgula)"
+        value={tags}
+        onChange={(e) => setTags(e.target.value)}
+      />
+      <label className="checkbox-label">
+        <input
+          type="checkbox"
+          checked={destaque}
+          onChange={(e) => setDestaque(e.target.checked)}
+        />
+        Marcar como notícia em destaque
+      </label>
       <input
         id="imagem-input"
         type="file"

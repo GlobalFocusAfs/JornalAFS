@@ -3,6 +3,7 @@ package com.jornal.model;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Document(collection = "noticias")
 public class Noticia {
@@ -13,6 +14,11 @@ public class Noticia {
     private String imagemUrl;
     private String autor;
     private LocalDateTime dataPublicacao;
+    private String categoria;
+    private List<String> tags;
+    private boolean destaque;
+    private int visualizacoes;
+    private int likes;
 
     public String getId() {
         return id;
@@ -60,6 +66,46 @@ public class Noticia {
 
     public void setDataPublicacao(LocalDateTime dataPublicacao) {
         this.dataPublicacao = dataPublicacao;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<String> tags) {
+        this.tags = tags;
+    }
+
+    public boolean isDestaque() {
+        return destaque;
+    }
+
+    public void setDestaque(boolean destaque) {
+        this.destaque = destaque;
+    }
+
+    public int getVisualizacoes() {
+        return visualizacoes;
+    }
+
+    public void setVisualizacoes(int visualizacoes) {
+        this.visualizacoes = visualizacoes;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
 
