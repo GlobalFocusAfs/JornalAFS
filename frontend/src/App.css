@@ -1259,7 +1259,7 @@ button:disabled {
 }
 
 .loading-gif {
-  width: 1600px;
-  height: 1600px;
+  width: 800px;
+  height: 1800px;
   object-fit: contain;
 }
