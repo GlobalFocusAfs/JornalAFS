@@ -44,6 +44,7 @@ public class SecurityConfig {
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/api/noticias").authenticated()
+                .requestMatchers(HttpMethod.GET, "/api/polls").permitAll()
                 .requestMatchers("/api/polls/**").authenticated()
                 .anyRequest().permitAll()
             )

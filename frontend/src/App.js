@@ -18,21 +18,36 @@ function App() {
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
 
   const carregarNoticias = async (categoria = null) => {
+    console.log('Iniciando carregamento de notícias...');
+    console.log('Categoria selecionada:', categoria);
+
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      console.log('API Base:', apiBase);
+
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 200000); // 10 seconds timeout
       let url = apiBase + '/api/noticias';
       if (categoria) {
         url = apiBase + '/api/noticias/categoria/' + encodeURIComponent(categoria);
       }
+      console.log('URL completa:', url);
+
       const response = await fetch(url, { signal: controller.signal });
+      console.log('Resposta da API:', response);
+      console.log('Status da resposta:', response.status);
+
       clearTimeout(timeoutId);
       const data = await response.json();
+      console.log('Dados recebidos:', data);
+
       setNoticias(Array.isArray(data) ? data : []);
+      console.log('Notícias definidas no estado:', Array.isArray(data) ? data.length : 0, 'itens');
+
       // Extract unique categories from noticias and setCategorias only when loading all news
       if (!categoria && Array.isArray(data)) {
         const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(Boolean))];
+        console.log('Categorias únicas extraídas:', uniqueCategories);
         setCategorias(uniqueCategories);
       }
     } catch (error) {
@@ -47,6 +62,29 @@ function App() {
       }
     } finally {
       setCarregando(false);
+    }
+  };
+
+  const carregarCategorias = async () => {
+    try {
+      const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      console.log('Carregando categorias...');
+
+      const response = await fetch(apiBase + '/api/noticias/categorias');
+      console.log('Resposta da API de categorias:', response);
+      console.log('Status da resposta:', response.status);
+
+      if (response.ok) {
+        const data = await response.json();
+        console.log('Categorias recebidas:', data);
+        setCategorias(Array.isArray(data) ? data : []);
+      } else {
+        console.error('Erro ao carregar categorias:', response.status);
+        setCategorias([]);
+      }
+    } catch (error) {
+      console.error('Erro ao carregar categorias:', error);
+      setCategorias([]);
     }
   };
 
@@ -65,6 +103,7 @@ function App() {
   useEffect(() => {
     carregarNoticias();
     carregarPolls();
+    carregarCategorias();
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);

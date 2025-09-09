@@ -30,8 +30,16 @@ const PollForm = ({ onNewPoll }) => {
     const token = localStorage.getItem('token');
     const filteredOptions = options.filter(opt => opt.trim() !== '');
 
+    console.log('Iniciando criação de enquete...');
+    console.log('Pergunta:', question);
+    console.log('Opções filtradas:', filteredOptions);
+    console.log('Token presente:', !!token);
+
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
+      console.log('API Base:', apiBase);
+      console.log('URL completa:', apiBase + '/api/polls');
+
       const response = await axios.post(
         apiBase + '/api/polls',
         { question, options: filteredOptions },
@@ -43,6 +51,9 @@ const PollForm = ({ onNewPoll }) => {
         }
       );
 
+      console.log('Resposta da API:', response);
+      console.log('Status da resposta:', response.status);
+
       if (response.status === 200) {
         alert('Enquete criada com sucesso!');
         setQuestion('');
@@ -52,8 +63,11 @@ const PollForm = ({ onNewPoll }) => {
     } catch (error) {
       console.error('Erro ao criar enquete:', error);
       if (error.response) {
+        console.error('Dados do erro:', error.response.data);
+        console.error('Status do erro:', error.response.status);
         alert('Erro: ' + error.response.data);
       } else {
+        console.error('Erro de rede ou outro:', error.message);
         alert('Erro ao criar enquete. Verifique sua conexão.');
       }
     } finally {

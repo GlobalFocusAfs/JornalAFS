@@ -4,6 +4,11 @@ import axios from 'axios';
 const PollList = ({ polls, onVote }) => {
   const handleVote = async (pollId, option) => {
     const token = localStorage.getItem('token');
+    console.log('Iniciando votação...');
+    console.log('Poll ID:', pollId);
+    console.log('Opção selecionada:', option);
+    console.log('Token presente:', !!token);
+
     if (!token) {
       alert('Você precisa estar logado para votar.');
       return;
@@ -11,7 +16,10 @@ const PollList = ({ polls, onVote }) => {
 
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
-      await axios.post(
+      console.log('API Base:', apiBase);
+      console.log('URL completa:', apiBase + `/api/polls/${pollId}/vote`);
+
+      const response = await axios.post(
         apiBase + `/api/polls/${pollId}/vote`,
         { option },
         {
@@ -21,10 +29,20 @@ const PollList = ({ polls, onVote }) => {
           }
         }
       );
+
+      console.log('Resposta da votação:', response);
+      console.log('Status da resposta:', response.status);
+
       alert('Voto registrado!');
       onVote();
     } catch (error) {
       console.error('Erro ao votar:', error);
+      if (error.response) {
+        console.error('Dados do erro:', error.response.data);
+        console.error('Status do erro:', error.response.status);
+      } else {
+        console.error('Erro de rede ou outro:', error.message);
+      }
       alert('Erro ao votar.');
     }
   };
