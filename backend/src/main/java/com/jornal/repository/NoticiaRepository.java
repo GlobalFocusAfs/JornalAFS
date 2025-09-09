@@ -10,7 +10,7 @@ import java.util.List;
 public interface NoticiaRepository extends MongoRepository<Noticia, String> {
     List<Noticia> findByCategoria(String categoria);
 
-    @Query(value = "{}", fields = "{'categoria': 1}")
+    @Query(value = "{ 'categoria': { $ne: null, $ne: '' } }", fields = "{'categoria': 1}")
     List<Noticia> findAllCategorias();
 
     default List<String> findDistinctCategoria() {

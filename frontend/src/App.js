@@ -46,7 +46,7 @@ function App() {
 
       // Extract unique categories from noticias and setCategorias only when loading all news
       if (!categoria && Array.isArray(data)) {
-        const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(Boolean))];
+        const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(categoria => categoria && categoria.trim()))];
         console.log('Categorias únicas extraídas:', uniqueCategories);
         setCategorias(uniqueCategories);
       }

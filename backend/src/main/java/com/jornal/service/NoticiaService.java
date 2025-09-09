@@ -43,6 +43,12 @@ public class NoticiaService {
         noticia.setTitulo(titulo);
         noticia.setConteudo(conteudo);
         noticia.setAutor(autor);
+        if (categoria != null) {
+            categoria = categoria.trim();
+            if (categoria.isEmpty()) {
+                categoria = null;
+            }
+        }
         noticia.setCategoria(categoria);
         if (tags != null && !tags.trim().isEmpty()) {
             List<String> tagsList = List.of(tags.split(","));
