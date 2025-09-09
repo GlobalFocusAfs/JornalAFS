@@ -38,11 +38,16 @@ public class NoticiaService {
         return null;
     }
 
-    public Noticia salvar(String titulo, String conteudo, String autor, MultipartFile imagem) {
+    public Noticia salvar(String titulo, String conteudo, String autor, String categoria, String tags, MultipartFile imagem) {
         Noticia noticia = new Noticia();
         noticia.setTitulo(titulo);
         noticia.setConteudo(conteudo);
         noticia.setAutor(autor);
+        noticia.setCategoria(categoria);
+        if (tags != null && !tags.trim().isEmpty()) {
+            List<String> tagsList = List.of(tags.split(","));
+            noticia.setTags(tagsList);
+        }
         noticia.setDataPublicacao(LocalDateTime.now());
 
         if (imagem != null && !imagem.isEmpty()) {

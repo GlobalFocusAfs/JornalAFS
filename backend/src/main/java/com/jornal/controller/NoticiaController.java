@@ -43,6 +43,8 @@ public class NoticiaController {
             @RequestParam String titulo,
             @RequestParam String conteudo,
             @RequestParam String autor,
+            @RequestParam(required = false) String categoria,
+            @RequestParam(required = false) String tags,
             @RequestParam(required = false) MultipartFile imagem) {
         try {
             // Validações básicas
@@ -57,7 +59,7 @@ public class NoticiaController {
             }
 
             System.out.println("Recebendo notícia: " + titulo + " por " + autor);
-            Noticia noticia = noticiaService.salvar(titulo.trim(), conteudo.trim(), autor.trim(), imagem);
+            Noticia noticia = noticiaService.salvar(titulo.trim(), conteudo.trim(), autor.trim(), categoria, tags, imagem);
             System.out.println("Notícia salva com ID: " + noticia.getId());
             return ResponseEntity.ok(noticia);
         } catch (IllegalArgumentException e) {

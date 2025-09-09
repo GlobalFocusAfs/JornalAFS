@@ -17,21 +17,23 @@ function App() {
   const [categorias, setCategorias] = useState([]);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
 
-  const carregarNoticias = async () => {
+  const carregarNoticias = async (categoria = null) => {
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
       const controller = new AbortController();
       const timeoutId = setTimeout(() => controller.abort(), 200000); // 10 seconds timeout
-      const response = await fetch(apiBase + '/api/noticias', { signal: controller.signal });
+      let url = apiBase + '/api/noticias';
+      if (categoria) {
+        url = apiBase + '/api/noticias/categoria/' + encodeURIComponent(categoria);
+      }
+      const response = await fetch(url, { signal: controller.signal });
       clearTimeout(timeoutId);
       const data = await response.json();
       setNoticias(Array.isArray(data) ? data : []);
-      // Extract unique categories from noticias and setCategorias
-      if (Array.isArray(data)) {
+      // Extract unique categories from noticias and setCategorias only when loading all news
+      if (!categoria && Array.isArray(data)) {
         const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(Boolean))];
         setCategorias(uniqueCategories);
-      } else {
-        setCategorias([]);
       }
     } catch (error) {
       if (error.name === 'AbortError') {
@@ -40,7 +42,9 @@ function App() {
         console.error('Erro ao carregar notícias:', error);
       }
       setNoticias([]);
-      setCategorias([]);
+      if (!categoria) {
+        setCategorias([]);
+      }
     } finally {
       setCarregando(false);
     }
@@ -66,6 +70,14 @@ function App() {
       setIsLoggedIn(true);
     }
   }, []);
+
+  useEffect(() => {
+    if (categoriaSelecionada !== '') {
+      carregarNoticias(categoriaSelecionada);
+    } else {
+      carregarNoticias();
+    }
+  }, [categoriaSelecionada]);
 
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -148,10 +160,10 @@ function App() {
               </div>
             </div>
             <NoticiaList
-              noticias={categoriaSelecionada ? noticias.filter(noticia => noticia.categoria === categoriaSelecionada) : noticias}
+              noticias={noticias}
               onSelectNoticia={setSelectedNoticiaId}
               isLoggedIn={isLoggedIn}
-              onDelete={carregarNoticias}
+              onDelete={() => carregarNoticias(categoriaSelecionada || null)}
             />
           </div>
         )}

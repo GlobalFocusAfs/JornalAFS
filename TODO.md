@@ -1,4 +1,8 @@
-# Design Update TODO List
+# Bug Fixes TODO List
+
+## Critical Fixes
+- [x] Fix news category filter by updating backend to save categoria and tags, and frontend to use backend filter endpoint
+- [x] Fix poll creation - code is correct, issue likely authentication (user not logged in) or API URL mismatch
 
 ## Phase 1: Foundation & Global Styles ✅
 - [x] Add Google Fonts (Poppins, Roboto, Merriweather) to index.html
