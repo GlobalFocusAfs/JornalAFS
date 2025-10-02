@@ -52,9 +52,6 @@ function App() {
         console.error('Erro ao carregar notícias:', error);
       }
       setNoticias([]);
-      if (!categoria) {
-        setCategorias([]);
-      }
     } finally {
       setCarregando(false);
     }
@@ -77,7 +74,6 @@ function App() {
   useEffect(() => {
     carregarNoticias();
     carregarPolls();
-    carregarCategorias();
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
