@@ -72,6 +72,9 @@ public class Poll {
     }
 
     public Set<String> getVotedIPs() {
+        if (votedIPs == null) {
+            votedIPs = new java.util.HashSet<>();
+        }
         return votedIPs;
     }
 
