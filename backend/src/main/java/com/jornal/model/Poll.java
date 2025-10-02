@@ -14,7 +14,7 @@ public class Poll {
     private String question;
     private List<String> options;
     private Map<String, Integer> votes; // option -> count
-    private Set<String> votedIPs; // IPs que já votaram
+    private Set<String> votedDeviceIds; // IDs de dispositivos que já votaram
     private LocalDateTime createdAt;
 
     public Poll() {}
@@ -26,7 +26,7 @@ public class Poll {
         for (String option : options) {
             this.votes.put(option, 0);
         }
-        this.votedIPs = new java.util.HashSet<>();
+        this.votedDeviceIds = new java.util.HashSet<>();
         this.createdAt = LocalDateTime.now();
     }
 
@@ -71,14 +71,14 @@ public class Poll {
         this.createdAt = createdAt;
     }
 
-    public Set<String> getVotedIPs() {
-        if (votedIPs == null) {
-            votedIPs = new java.util.HashSet<>();
+    public Set<String> getVotedDeviceIds() {
+        if (votedDeviceIds == null) {
+            votedDeviceIds = new java.util.HashSet<>();
         }
-        return votedIPs;
+        return votedDeviceIds;
     }
 
-    public void setVotedIPs(Set<String> votedIPs) {
-        this.votedIPs = votedIPs;
+    public void setVotedDeviceIds(Set<String> votedDeviceIds) {
+        this.votedDeviceIds = votedDeviceIds;
     }
 }

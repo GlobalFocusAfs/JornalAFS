@@ -1,6 +1,16 @@
 import React from 'react';
 import axios from 'axios';
 
+// Função para gerar ou obter deviceId único
+const getDeviceId = () => {
+  let deviceId = localStorage.getItem('deviceId');
+  if (!deviceId) {
+    deviceId = 'device-' + Math.random().toString(36).substr(2, 9) + '-' + Date.now();
+    localStorage.setItem('deviceId', deviceId);
+  }
+  return deviceId;
+};
+
 const PollList = ({ polls, onVote }) => {
   const handleVote = async (pollId, option) => {
     console.log('Iniciando votação...');
@@ -12,9 +22,10 @@ const PollList = ({ polls, onVote }) => {
       console.log('API Base:', apiBase);
       console.log('URL completa:', apiBase + `/api/polls/${pollId}/vote`);
 
+      const deviceId = getDeviceId();
       const response = await axios.post(
         apiBase + `/api/polls/${pollId}/vote`,
-        { option },
+        { option, deviceId },
         {
           headers: {
             'Content-Type': 'application/json'

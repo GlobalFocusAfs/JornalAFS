@@ -44,15 +44,18 @@ public class PollController {
     }
 
     @PostMapping("/{id}/vote")
-    public ResponseEntity<?> vote(@PathVariable String id, @RequestBody Map<String, String> voteMap, HttpServletRequest request) {
+    public ResponseEntity<?> vote(@PathVariable String id, @RequestBody Map<String, String> voteMap) {
         String option = voteMap.get("option");
+        String deviceId = voteMap.get("deviceId");
         if (option == null || option.trim().isEmpty()) {
             return ResponseEntity.badRequest().body("Opção é obrigatória");
         }
+        if (deviceId == null || deviceId.trim().isEmpty()) {
+            return ResponseEntity.badRequest().body("ID do dispositivo é obrigatório");
+        }
 
-        String ip = getClientIp(request);
         try {
-            pollService.vote(id, option.trim(), ip);
+            pollService.vote(id, option.trim(), deviceId.trim());
             return ResponseEntity.ok("Voto registrado");
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(e.getMessage());
