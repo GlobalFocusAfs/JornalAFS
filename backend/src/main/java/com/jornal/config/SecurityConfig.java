@@ -45,7 +45,8 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers(HttpMethod.POST, "/api/noticias").authenticated()
                 .requestMatchers(HttpMethod.GET, "/api/polls").permitAll()
-                .requestMatchers("/api/polls/**").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/polls").authenticated()
+                .requestMatchers(HttpMethod.POST, "/api/polls/{id}/vote").permitAll()
                 .anyRequest().permitAll()
             )
             .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);

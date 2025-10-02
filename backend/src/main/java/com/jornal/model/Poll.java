@@ -5,6 +5,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 @Document(collection = "polls")
 public class Poll {
@@ -13,6 +14,7 @@ public class Poll {
     private String question;
     private List<String> options;
     private Map<String, Integer> votes; // option -> count
+    private Set<String> votedIPs; // IPs que já votaram
     private LocalDateTime createdAt;
 
     public Poll() {}
@@ -24,6 +26,7 @@ public class Poll {
         for (String option : options) {
             this.votes.put(option, 0);
         }
+        this.votedIPs = new java.util.HashSet<>();
         this.createdAt = LocalDateTime.now();
     }
 
@@ -66,5 +69,13 @@ public class Poll {
 
     public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
+    }
+
+    public Set<String> getVotedIPs() {
+        return votedIPs;
+    }
+
+    public void setVotedIPs(Set<String> votedIPs) {
+        this.votedIPs = votedIPs;
     }
 }

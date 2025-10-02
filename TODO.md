@@ -1,12 +1,7 @@
-# TODO: Fix Category Filter
+# TODO: Corrigir votação em enquetes
 
-## Backend Changes
-- [x] Update NoticiaRepository.java: Modify findAllCategorias() query to filter null/empty categoria at DB level
-- [x] Update NoticiaService.java: Ensure categoria is trimmed and validated before saving
-
-## Frontend Changes
-- [x] Update App.js: Improve category extraction logic to properly filter categories
-
-## Testing
-- [ ] Test category filter in frontend to confirm categories appear
-- [ ] Test news creation with categories to ensure they are saved correctly
+- [x] Atualizar SecurityConfig para permitir votação sem autenticação
+- [x] Modificar modelo Poll para rastrear IPs que votaram
+- [x] Atualizar PollService para verificar e prevenir votos múltiplos do mesmo IP
+- [x] Atualizar PollController para passar IP para o serviço
+- [x] Atualizar frontend PollList para remover requisito de token

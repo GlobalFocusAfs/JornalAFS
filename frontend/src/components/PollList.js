@@ -3,16 +3,9 @@ import axios from 'axios';
 
 const PollList = ({ polls, onVote }) => {
   const handleVote = async (pollId, option) => {
-    const token = localStorage.getItem('token');
     console.log('Iniciando votação...');
     console.log('Poll ID:', pollId);
     console.log('Opção selecionada:', option);
-    console.log('Token presente:', !!token);
-
-    if (!token) {
-      alert('Você precisa estar logado para votar.');
-      return;
-    }
 
     try {
       const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
@@ -24,7 +17,6 @@ const PollList = ({ polls, onVote }) => {
         { option },
         {
           headers: {
-            'Authorization': `Bearer ${token}`,
             'Content-Type': 'application/json'
           }
         }
@@ -40,10 +32,11 @@ const PollList = ({ polls, onVote }) => {
       if (error.response) {
         console.error('Dados do erro:', error.response.data);
         console.error('Status do erro:', error.response.status);
+        alert(error.response.data);
       } else {
         console.error('Erro de rede ou outro:', error.message);
+        alert('Erro ao votar.');
       }
-      alert('Erro ao votar.');
     }
   };
 

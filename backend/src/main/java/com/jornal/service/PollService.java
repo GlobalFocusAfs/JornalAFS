@@ -25,10 +25,14 @@ public class PollService {
         return pollRepository.findById(id).orElse(null);
     }
 
-    public void vote(String pollId, String option) {
+    public void vote(String pollId, String option, String ip) {
         Poll poll = findById(pollId);
         if (poll != null && poll.getVotes().containsKey(option)) {
+            if (poll.getVotedIPs().contains(ip)) {
+                throw new IllegalArgumentException("Este IP já votou nesta enquete.");
+            }
             poll.getVotes().put(option, poll.getVotes().get(option) + 1);
+            poll.getVotedIPs().add(ip);
             salvar(poll);
         }
     }
