@@ -14,7 +14,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
   const [selectedNoticiaId, setSelectedNoticiaId] = useState(null);
-  const [categorias, setCategorias] = useState([]);
+  const [categorias, setCategorias] = useState(['Educação', 'Eventos', 'Premiações', 'Esportes', 'Cultura', 'Opinião']);
   const [categoriaSelecionada, setCategoriaSelecionada] = useState('');
 
   const carregarNoticias = async (categoria = null) => {
@@ -44,12 +44,7 @@ function App() {
       setNoticias(Array.isArray(data) ? data : []);
       console.log('Notícias definidas no estado:', Array.isArray(data) ? data.length : 0, 'itens');
 
-      // Extract unique categories from noticias and setCategorias only when loading all news
-      if (!categoria && Array.isArray(data)) {
-        const uniqueCategories = [...new Set(data.map(noticia => noticia.categoria).filter(categoria => categoria && categoria.trim()))];
-        console.log('Categorias únicas extraídas:', uniqueCategories);
-        setCategorias(uniqueCategories);
-      }
+
     } catch (error) {
       if (error.name === 'AbortError') {
         console.error('Request timed out');
@@ -65,28 +60,7 @@ function App() {
     }
   };
 
-  const carregarCategorias = async () => {
-    try {
-      const apiBase = process.env.REACT_APP_API_URL && process.env.REACT_APP_API_URL !== 'undefined' ? process.env.REACT_APP_API_URL : 'https://jornalafs.onrender.com';
-      console.log('Carregando categorias...');
 
-      const response = await fetch(apiBase + '/api/noticias/categorias');
-      console.log('Resposta da API de categorias:', response);
-      console.log('Status da resposta:', response.status);
-
-      if (response.ok) {
-        const data = await response.json();
-        console.log('Categorias recebidas:', data);
-        setCategorias(Array.isArray(data) ? data : []);
-      } else {
-        console.error('Erro ao carregar categorias:', response.status);
-        setCategorias([]);
-      }
-    } catch (error) {
-      console.error('Erro ao carregar categorias:', error);
-      setCategorias([]);
-    }
-  };
 
   const carregarPolls = async () => {
     try {
@@ -239,7 +213,7 @@ function App() {
         <div className="footer-content">
           <div className="footer-section">
             <h3>Contato</h3>
-            <p>📧 contato@eeepafs.edu.br</p>
+            <p>📧 yagoveras560@gmail.com</p>
             <p>📞 (88)9415-1359</p>
             <p>📍 Redenção - Ceará</p>
           </div>
